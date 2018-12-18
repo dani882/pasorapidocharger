@@ -1,16 +1,14 @@
-from apiclient import errors
-import email
 import base64
+import email
+import os
+
+from apiclient import errors
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import client, file, tools
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/gmail.readonly'
-
-# Import my credentials setting from config file
-# email = config.FROM_EMAIL
-
 
 def get_credentials():
     """Shows basic usage of the Gmail API.
@@ -79,7 +77,7 @@ def GetMessage(service, user_id, msg_id):
         return None
 
 service = get_credentials()
-user_id = "dani882@gmail.com"
+user_id = os.getenv('EMAIL')
 FROM = "no-reply@pasorapido.com"
 msg_id = ListMessagesMatchingQuery(service, user_id, FROM)
 
